@@ -4,7 +4,9 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "build" }
+      "config": {
+        "distDir": "build"
+      }
     }
   ],
   "routes": [
@@ -21,12 +23,11 @@
       "dest": "/manifest.json"
     },
     {
-      "src": "/robots.txt",
-      "dest": "/robots.txt"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "REACT_APP_API_URL": "https://weather-app-backend-for5.onrender.com"
+  }
 } 
