@@ -5,7 +5,8 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "build",
+        "buildCommand": "npm run build"
       }
     }
   ],
@@ -29,5 +30,8 @@
   ],
   "env": {
     "REACT_APP_API_URL": "https://weather-app-backend-for5.onrender.com"
+  },
+  "github": {
+    "silent": true
   }
 } 
