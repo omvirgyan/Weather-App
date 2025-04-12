@@ -1,11 +1,18 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "framework": "create-react-app",
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://your-render-backend-url.onrender.com/api/:path*"
-    }
-  ]
-} 
+  "name": "weather-dashboard",
+  "version": "1.0.0",
+  "description": "Weather Dashboard Application",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "start": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "test": "cd client && npm test",
+    "eject": "cd client && npm run eject"
+  },
+  "author": "omvirgyan",
+  "license": "MIT"
+}
