@@ -5,6 +5,9 @@ import WeatherCard from './components/WeatherCard';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import './App.css';
 
+// API base URL
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 // My weather app component
 function App() {
   // State for weather data and UI
@@ -33,8 +36,8 @@ function App() {
     
     try {
       let [weatherRes, forecastRes] = await Promise.all([
-        axios.get(`http://localhost:5000/api/weather?city=${encodeURIComponent(city)}`),
-        axios.get(`http://localhost:5000/api/forecast?city=${encodeURIComponent(city)}`)
+        axios.get(`${API_URL}/api/weather?city=${encodeURIComponent(city)}`),
+        axios.get(`${API_URL}/api/forecast?city=${encodeURIComponent(city)}`)
       ]);
 
       if (!weatherRes.data) throw new Error('Failed to fetch weather data');
@@ -111,7 +114,7 @@ function App() {
       async (position) => {
         try {
           let { data } = await axios.get(
-            `http://localhost:5000/api/reverse-geocode?lat=${position.coords.latitude}&lon=${position.coords.longitude}`
+            `${API_URL}/api/reverse-geocode?lat=${position.coords.latitude}&lon=${position.coords.longitude}`
           );
           
           if (data?.city) {

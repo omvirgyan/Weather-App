@@ -60,10 +60,6 @@ PORT=5000
 
 - GET `/api/weather?city={cityName}` - Get weather data for a specific city
 
-## Contributing
-
-Feel free to submit issues and pull requests.
-
-## License
-
-MIT 
+### Live on:
+- **Frontend URL**: [Vercel](https://weather-app-ten-liart-59.vercel.app/)
+- **Backend URL**: [Render](https://weather-app-mz88.onrender.com/)

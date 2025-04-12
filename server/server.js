@@ -7,8 +7,15 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Basic setup
-app.use(cors());
+// CORS configuration
+const corsOptions = {
+    origin: process.env.NODE_ENV === 'production' 
+        ? ['https://weather-app-omvirgyan.vercel.app', 'http://localhost:3000']
+        : 'http://localhost:3000',
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Helper function to handle API errors
@@ -69,7 +76,8 @@ app.get('/api/weather', async (req, res) => {
             icon: response.data.weather[0].icon,
             humidity: response.data.main.humidity,
             windSpeed: response.data.wind.speed,
-            country: response.data.sys.country
+            country: response.data.sys.country,
+            feels_like: response.data.main.feels_like
         };
 
         res.json(weather);
@@ -121,10 +129,10 @@ app.get('/api/forecast', async (req, res) => {
 
 // Simple health check
 app.get('/health', (req, res) => {
-    res.json({ status: 'working' });
+    res.json({ status: 'OK' });
 });
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
+    console.log(`Server running on port ${port}`);
 }); 
