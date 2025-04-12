@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import SearchBar from './components/SearchBar';
 import WeatherCard from './components/WeatherCard';
@@ -26,7 +26,7 @@ function App() {
   }, [isDark]);
 
   // Get weather data for a city
-  async function fetchWeatherData(city) {
+  const fetchWeatherData = useCallback(async (city) => {
     if (!city?.trim()) return;
 
     setIsLoading(true);
@@ -101,10 +101,15 @@ function App() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);  // Empty dependency array since it doesn't depend on any props or state
 
-  // Get user's location
-  function getUserLocation() {
+  // Get location on start
+  useEffect(() => {
+    getUserLocation();
+  }, [getUserLocation]);
+
+  // Move getUserLocation inside useCallback
+  const getUserLocation = useCallback(() => {
     if (!navigator.geolocation) {
       setErrorMsg('Your browser doesn\'t support geolocation');
       return;
@@ -130,12 +135,7 @@ function App() {
         setErrorMsg(err.code === 1 ? 'Please enable location access' : 'Error getting location');
       }
     );
-  }
-
-  // Get location on start
-  useEffect(() => {
-    getUserLocation();
-  }, []);
+  }, [fetchWeatherData]);
 
   return (
     <div className={`App ${isDark ? 'dark' : 'light'}`}>
